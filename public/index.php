@@ -9,9 +9,7 @@ $app->router->get('/', function() {
     return 'hello';
 });
 
-$app->router->get('/contact', function() {
-    return 'contact';
-});
+$app->router->get('/contact', 'contact');
 
 $app->run();
 
