@@ -3,7 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 use app\Application;
 
-$app = new Application(dirname(__DIR__));
+$app = new Application(__DIR__.'/../src/');
 
 $app->router->get('/', 'home');
 
