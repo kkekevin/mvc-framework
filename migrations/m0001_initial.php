@@ -1,13 +1,17 @@
 <?php
 
-class m0001_something {
+class m0001_initial {
     public function up ()
     {
-        echo 'Applying migration';
-    }
+/*         $db = \app\Application::$app->db;
+        $SQL = 'CREATE TABLE users';
+        $db->pdo-exec($SQL);
+ */    }
 
     public function down ()
     {
-        echo 'Down migration';
-    }
+/*         $db = \app\Application::$app->db;
+        $SQL = 'DROP TABLE users';
+        $db->pdo-exec($SQL);
+ */    }
 }

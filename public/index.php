@@ -31,4 +31,3 @@ $app->router->get('/register', [AuthController::class, 'register']);
 
 $app->run();
 
-?>
