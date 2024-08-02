@@ -23,7 +23,7 @@ class Database
         $files = scandir(Application::$ROOT_DIR.'/../migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
         foreach ($toApplyMigrations as $migration) {
-            if ($migration === '.'|| $migration === '..') 
+            if ($migration === '.' || $migration === '..') 
                 continue;
             require_once Application::$ROOT_DIR.'/../migrations/'.$migration;
             $className = pathinfo($migration, PATHINFO_FILENAME);
@@ -57,10 +57,10 @@ class Database
 
     public function saveMigrations (array $migrations)
     {
-        $str = implode(',', array_map(fn($m) => "('$m')", $migrations));
-        $statement = $this->pdo->prepare('INSERT INTO migrations (migration) VALUES
+        $str = implode(',', array_map(fn($m) => "('$m')", $migrations));        
+        $statement = $this->pdo->prepare("INSERT INTO migrations (migration) VALUES
             $str
-        ');
+        ");
         $statement->execute();
     }
 

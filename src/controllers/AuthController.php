@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use app\Controller;
 use app\Request;
-use app\models\RegisterModel;
+use app\models\User;
 
 class AuthController extends Controller
 {
@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function register (Request $request)
     {
-        $registerModel = new RegisterModel();
+        $registerModel = new User();
         $errors = [];
         $this->setLayout('auth');
         if ($request->isPost()) {
