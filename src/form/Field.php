@@ -15,7 +15,7 @@ class Field
     public function __toString()
     {
         return sprintf('
-            <div class="mb-3">
+            <div class="form-group">
                 <label>%s</label>
                 <input type="%s" name="%s" value="%s" class="form-control%s">
             </div>

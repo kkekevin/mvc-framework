@@ -23,10 +23,11 @@ class AuthController extends Controller
 
             if ($registerModel->validate() && $registerModel->register())
                 return 'success';
+        
             return $this->render('register', [
                 'model' => $registerModel
             ]);
-        }
+        }        
         return $this->render('register', [
             'model' => $registerModel
         ]);

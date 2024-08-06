@@ -23,7 +23,7 @@ abstract class Model
     public function validate ()
     {
         foreach ($this->rules() as $attribute => $rules) {
-            $value = $this->$attribute;
+            $value = $this->{$attribute};
             foreach ($rules as $rule) {
                 $ruleName = $rule;
                 if (!is_string($ruleName))
@@ -34,7 +34,7 @@ abstract class Model
                     $this->addError($attribute, self::RULE_EMAIL);
                 if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min'])
                     $this->addError($attribute, self::RULE_MIN, $rule);
-                if ($ruleName === self::RULE_MAX && strlen($value) < $rule['max'])
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max'])
                     $this->addError($attribute, self::RULE_MAX, $rule);
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']})
                     $this->addError($attribute, self::RULE_MATCH, $rule);
