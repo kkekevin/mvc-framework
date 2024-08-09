@@ -5,15 +5,26 @@ use app\DbModel;
 
 class User extends DbModel
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+    const STATUS_DELETED = -1;
     public ?string $firstname = '';
     public ?string $lastname = '';
     public ?string $email = '';
+    public int $status = self::STATUS_INACTIVE;
     public ?string $password = '';
     public ?string $confirmPassword = '';
 
     public function tableName (): string
     {
         return 'users';
+    }
+
+    public function save ()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        return parent::save();
     }
     public function register ()
     {
@@ -33,6 +44,6 @@ class User extends DbModel
 
     public function attributes (): array
     {
-        return ['firstname', 'lastname', 'email', 'password'];
+        return ['firstname', 'lastname', 'email', 'password', 'status'];
     }
 }
