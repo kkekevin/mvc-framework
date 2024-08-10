@@ -21,6 +21,15 @@ abstract class Model
 
     abstract public function rules (): array;
 
+    public function labels (): array
+    {
+        return [];
+    }
+
+    public function getLabel ($attribute)
+    {
+        return $this->labels()[$attribute] ?? $attribute;
+    }
     public function validate ()
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -37,8 +46,10 @@ abstract class Model
                     $this->addError($attribute, self::RULE_MIN, $rule);
                 if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max'])
                     $this->addError($attribute, self::RULE_MAX, $rule);
-                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']})
+                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
+                    $rule['match'] = $this->getLabel($rule['match']);
                     $this->addError($attribute, self::RULE_MATCH, $rule);
+                }
                 if ($ruleName === self::RULE_UNIQUE) {
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
@@ -48,7 +59,7 @@ abstract class Model
                     $statement->execute();
                     $record = $statement->fetchObject();
                     if ($record)
-                        $this->addError($attribute, self::RULE_UNIQUE, ['field' => $attribute]);
+                        $this->addError($attribute, self::RULE_UNIQUE, ['field' => $this->getLabel($attribute)]);
                 }
             }
         }   
